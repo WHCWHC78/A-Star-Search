@@ -44,27 +44,27 @@ static void random_initial_state(uint8_t *initial_state)
     /** } */
 
     // from the book
-    /** initial_state[0] = 4; */
-    /** initial_state[1] = 8; */
-    /** initial_state[2] = 1; */
-    /** initial_state[3] = 7; */
-    /** initial_state[4] = 2; */
-    /** initial_state[5] = 3; */
-    /** initial_state[6] = 5; */
-    /** initial_state[7] = 0; */
-    /** initial_state[8] = 6; */
+    initial_state[0] = 4;
+    initial_state[1] = 8;
+    initial_state[2] = 1;
+    initial_state[3] = 7;
+    initial_state[4] = 2;
+    initial_state[5] = 3;
+    initial_state[6] = 5;
+    initial_state[7] = 0;
+    initial_state[8] = 6;
 
     // from http://w01fe.com/blog/2009/01/the-hardest-eight-puzzle-instances-take-31-moves-to-solve/
     // the first hardest 8-puzzle instance
-    initial_state[0] = 7;
-    initial_state[1] = 8;
-    initial_state[2] = 3;
-    initial_state[3] = 6;
-    initial_state[4] = 5;
-    initial_state[5] = 4;
-    initial_state[6] = 1;
-    initial_state[7] = 2;
-    initial_state[8] = 0;
+    /** initial_state[0] = 7; */
+    /** initial_state[1] = 8; */
+    /** initial_state[2] = 3; */
+    /** initial_state[3] = 6; */
+    /** initial_state[4] = 5; */
+    /** initial_state[5] = 4; */
+    /** initial_state[6] = 1; */
+    /** initial_state[7] = 2; */
+    /** initial_state[8] = 0; */
 
     // the second hardest 8-puzzle instance
     /** initial_state[0] = 5; */

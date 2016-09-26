@@ -26,5 +26,6 @@ struct node *child_node(struct problem *problem,
 void root_node(struct problem *problem, struct node *node);
 struct solution *push_solution(uint8_t action, struct solution *solution);
 void print_solution(struct solution *solution, uint8_t count);
+void solution_to_json(struct solution *solution, char *str);
 
 #endif /* ifndef _NODE_H */

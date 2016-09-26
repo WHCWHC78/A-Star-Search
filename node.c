@@ -91,3 +91,32 @@ void print_solution(struct solution *solution, uint8_t count)
     free(solution);
 }
 
+void solution_to_json(struct solution *solution, char *str)
+{
+    if (solution == NULL) {
+        (*str) = 0;
+        return;
+    }
+
+    switch (solution->action) {
+        case LEFT:
+            (*str) = LEFT + 0x30;
+            break;
+        case UP:
+            (*str) = UP + 0x30;
+            break;
+        case RIGHT:
+            (*str) = RIGHT + 0x30;
+            break;
+        case DOWN:
+            *str = DOWN + 0x30;
+            break;
+        default:
+            (*str) = NOACT + 0x30;
+    }
+
+    solution_to_json(solution->next, str + 1);
+
+    free(solution);
+}
+

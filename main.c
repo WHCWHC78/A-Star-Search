@@ -1,5 +1,7 @@
+#include <fcgi_stdio.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "a_star_bfs.h"
 
@@ -10,25 +12,37 @@ int main(void)
     struct solution *solution = NULL;
     enum STATUS status = FAILURE;
 
+    char str[50], *q_str;
+
     init_problem(&problem);
-    root_node(&problem, &node);
 
-    /** printf("Initial state = \n"); */
-    /** printf("%u\n", problem.initial_state[0]); */
-    /** printf("%u\n", problem.initial_state[1]); */
-    /** printf("%u\n", problem.initial_state[2]); */
-    /** printf("%u\n", problem.initial_state[3]); */
-    /** printf("%u\n", problem.initial_state[4]); */
-    /** printf("%u\n", problem.initial_state[5]); */
-    /** printf("%u\n", problem.initial_state[6]); */
-    /** printf("%u\n", problem.initial_state[7]); */
-    /** printf("%u\n", problem.initial_state[8]); */
-    status = a_star_bfs(&problem, &node, &solution, 100);
+    while(FCGI_Accept() >= 0) {
+        printf( "Content-type: text/plain\r\n\r\n");
 
-    printf("status: %u\n", status);
+        q_str = getenv("QUERY_STRING");
+
+        if (strcmp(q_str, "compute") == 0) {
+            root_node(&problem, &node);
+            status = a_star_bfs(&problem, &node, &solution, 100);
+            if (status == SUCCESS) {
+                solution_to_json(solution, str);
+                printf("%s", str);
+            }
+            else
+                printf("0");
+        }
+        else
+            printf("Please specify a valid parameter");
+    }
+
+
+
+    /** printf("status: %u\n", status); */
     /** stest = push_solution(NOACT, stest); */
     /** print_solution(stest, 1); */
-    print_solution(solution, 1);
+    /** print_solution(solution, 1); */
+    /** solution_to_json(solution, str); */
+    /** printf("steps: \n%s\n", str); */
 
     return 0;
 }
