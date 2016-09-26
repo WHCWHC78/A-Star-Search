@@ -14,6 +14,7 @@ struct problem {
     uint8_t (*actions)(uint8_t blank_pos, uint8_t last_act); 
     uint8_t *(*result)(uint8_t *state, uint8_t action);
     uint8_t (*goal_test)(uint8_t *state);
+    uint8_t (*h_func)(uint8_t *state);
 };
 
 void init_problem(struct problem *problem);

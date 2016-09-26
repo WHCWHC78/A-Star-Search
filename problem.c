@@ -56,15 +56,15 @@ static void random_initial_state(uint8_t *initial_state)
 
     // from http://w01fe.com/blog/2009/01/the-hardest-eight-puzzle-instances-take-31-moves-to-solve/
     // the first hardest 8-puzzle instance
-    /** initial_state[0] = 7; */
-    /** initial_state[1] = 8; */
-    /** initial_state[2] = 3; */
-    /** initial_state[3] = 6; */
-    /** initial_state[4] = 5; */
-    /** initial_state[5] = 4; */
-    /** initial_state[6] = 1; */
-    /** initial_state[7] = 2; */
-    /** initial_state[8] = 0; */
+    initial_state[0] = 7;
+    initial_state[1] = 8;
+    initial_state[2] = 3;
+    initial_state[3] = 6;
+    initial_state[4] = 5;
+    initial_state[5] = 4;
+    initial_state[6] = 1;
+    initial_state[7] = 2;
+    initial_state[8] = 0;
 
     // the second hardest 8-puzzle instance
     /** initial_state[0] = 5; */
@@ -255,6 +255,21 @@ static uint8_t goal_test(uint8_t *state)
     /** return 0; */
 }
 
+static uint8_t h_func(uint8_t *state)
+{
+    uint8_t count;
+    uint8_t sum = 0;
+
+    for (count = 8; count; --count) {
+        sum += abs((int)(state[count] / 3) - ((count - 1) / 3));
+        sum += abs((int)(state[count] % 3) - ((count - 1) % 3));
+
+        /** printf("count: %u, sum = %u\n", count, sum); */
+    }
+
+    return sum;
+}
+
 // param[in]    problem: our problem (8-puzzle)
 // return void
 void init_problem(struct problem *problem)
@@ -262,7 +277,10 @@ void init_problem(struct problem *problem)
     srand(time(NULL));
 
     random_initial_state(problem->initial_state);
-    problem->actions = actions;
-    problem->result = result;
-    problem->goal_test = goal_test;
+
+    problem->actions    = actions;
+    problem->result     = result;
+    problem->goal_test  = goal_test;
+    problem->h_func     = h_func;
 }
+

@@ -9,6 +9,9 @@ struct node {
     uint8_t *state;
     struct node *parent;
     uint8_t action;
+    uint8_t g; // cost from the root to the node
+    uint8_t h; // cost from the node the goal
+    uint8_t f; // overall cost
 };
 
 struct solution {

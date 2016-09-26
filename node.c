@@ -4,7 +4,8 @@
 
 #include "node.h"
 
-struct node *child_node(struct problem *problem, 
+struct node *child_node(
+        struct problem *problem, 
         struct node *parent, 
         uint8_t action)
 {
@@ -13,18 +14,25 @@ struct node *child_node(struct problem *problem,
     child->state    = problem->result(parent->state, action);
     child->parent   = parent;
     child->action   = action;
+    child->g        = parent->g + 1;
+    child->h        = problem->h_func(child->state);
+    child->f        = (child->g) + (child->h);
 
     return child;
 }
 
+/** @brief: Create root node */
 void root_node(struct problem *problem, struct node *node)
 {
     node->state = (uint8_t *)malloc(sizeof(uint8_t) * 9);
 
     memcpy(node->state, problem->initial_state, 9);
 
-    node->action = NOACT;
-    node->parent = NULL;
+    node->parent    = NULL;
+    node->action    = NOACT;
+    node->g         = 0;
+    node->h         = problem->h_func(node->state);
+    node->f        = (node->g) + (node->h);
 }
 
 struct solution *push_solution(uint8_t action, struct solution *solution)

@@ -1,23 +1,29 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "ids.h"
+#include "a_star_bfs.h"
 
-int main(int argc, char **argv)
+int main(void)
 {
-    uint8_t depth;
     struct problem problem;
     struct node node;
     struct solution *solution = NULL;
     enum STATUS status = FAILURE;
 
     init_problem(&problem);
+    root_node(&problem, &node);
 
-    for (depth = 0; depth < 100 && (status != SUCCESS); ++depth) {
-        /** printf("iteration: %u\n", depth + 1); */
-        root_node(&problem, &node);
-        status = depth_limited_search(&node, &problem, &solution, depth);
-    }
+    /** printf("Initial state = \n"); */
+    /** printf("%u\n", problem.initial_state[0]); */
+    /** printf("%u\n", problem.initial_state[1]); */
+    /** printf("%u\n", problem.initial_state[2]); */
+    /** printf("%u\n", problem.initial_state[3]); */
+    /** printf("%u\n", problem.initial_state[4]); */
+    /** printf("%u\n", problem.initial_state[5]); */
+    /** printf("%u\n", problem.initial_state[6]); */
+    /** printf("%u\n", problem.initial_state[7]); */
+    /** printf("%u\n", problem.initial_state[8]); */
+    status = a_star_bfs(&problem, &node, &solution, 100);
 
     printf("status: %u\n", status);
     /** stest = push_solution(NOACT, stest); */
