@@ -13,6 +13,7 @@ int main(void)
     enum STATUS status = FAILURE;
 
     char str[50], *q_str;
+    uint8_t count;
 
     init_problem(&problem);
 
@@ -31,8 +32,30 @@ int main(void)
             else
                 printf("0");
         }
+        else if (strncmp(q_str, "init=", 5) == 0) {
+            if (strlen(q_str) != 14) {
+                /** printf("You have to enter exactly 9 tiles."); */
+                printf("0");
+                continue;
+            }
+
+            for (count = 9; count; --count) {
+                uint8_t val = (*(q_str + 5 + (count - 1))) - 0x30;
+                problem.initial_state[count - 1] = val;
+                /** printf("%u ", val); */
+            }
+
+            /** printf("\n"); */
+            printf("1");
+        }
+        else if (strcmp(q_str, "get_init") == 0) {
+            for (count = 0; count < 9; ++count)
+                printf("%u", problem.initial_state[count]);
+        }
         else
-            printf("Please specify a valid parameter");
+            printf("0");
+            /** printf( "Please specify a valid parameter.\n" */
+                    /** "Your parameter is \"%s\".", q_str); */
     }
 
 
